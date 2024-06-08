@@ -1,4 +1,7 @@
 public class JogadorMaquina extends Jogador{
-    public JogadorMaquina() {
+    private DificuldadeJogo dificuldadeJogo;
+    public JogadorMaquina(DificuldadeJogo dificuldadeJogo) {
+        super();
+        this.dificuldadeJogo = dificuldadeJogo;
     }
 }
