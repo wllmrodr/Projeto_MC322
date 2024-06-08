@@ -1,0 +1,10 @@
+<Cartas>
+    <Carta>
+        <nome>Beagle</nome>
+        <fofura>5</fofura>
+        <brincalhao>10</brincalhao>
+        <agressividade>3</agressividade>
+        <agilidade>4</agilidade>
+        <obediencia>3</obediencia>
+    </Carta>
+</Cartas>
