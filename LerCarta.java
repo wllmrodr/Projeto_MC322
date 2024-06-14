@@ -17,19 +17,19 @@ public class LerCarta implements l_Arquivo{
             Document doc = dBuilder.parse ( file );
             doc.getDocumentElement().normalize () ;
 
-            NodeList nodeList = doc.getElementsByTagName ("Cartas");
+            NodeList nodeList = doc.getElementsByTagName ("Carta");
 
             for (int i = 0; i < nodeList.getLength () ; i ++) {
                 Element cartaElement = ( Element ) nodeList.item(i);
 
                 String nome = cartaElement.getElementsByTagName("nome").item (0).getTextContent() ;
                 int fofura = Integer.parseInt( cartaElement.getElementsByTagName("fofura").item(0).getTextContent () );
-                int brincalhao = Integer.parseInt( cartaElement.getElementsByTagName("brincalhao").item(0).getTextContent () );
-                int agressividade = Integer.parseInt( cartaElement.getElementsByTagName("agressividade").item(0).getTextContent () );
                 int agilidade = Integer.parseInt( cartaElement.getElementsByTagName("agilidade").item(0).getTextContent () );
+                int agressividade = Integer.parseInt( cartaElement.getElementsByTagName("agressividade").item(0).getTextContent () );
+                int brincalhao = Integer.parseInt( cartaElement.getElementsByTagName("brincalhão").item(0).getTextContent () );
                 int obediencia = Integer.parseInt( cartaElement.getElementsByTagName("obediencia").item(0).getTextContent () );
 
-                Carta carta = new Carta ( nome , fofura , brincalhao , agressividade , agilidade, obediencia);
+                Carta carta = new Carta ( nome , fofura , agilidade , agressividade , brincalhao, obediencia);
                 jogo.getBaralhoGeral().getBaralho().add(carta);
             }
         } catch ( Exception e) {

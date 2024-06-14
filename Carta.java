@@ -1,12 +1,12 @@
 public class Carta {
     private String nome;
     private int fofura;
-    private int brincalhao;
-    private int agressividade;
     private int agilidade;
+    private int agressividade;
+    private int brincalhao;
     private int obediencia;
 
-    public Carta(String nome, int fofura, int brincalhao, int agressividade, int agilidade, int obediencia) {
+    public Carta(String nome, int fofura, int agilidade, int agressividade, int brincalhao, int obediencia) {
         this.nome = nome;
         this.fofura = fofura;
         this.brincalhao = brincalhao;

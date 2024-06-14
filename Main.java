@@ -10,6 +10,7 @@ public class Main {
         Jogo jogo = new Jogo(jogadorMaquina, jogadorReal, baralhoGeral, baralhoMesa);
 
         lerCarta.lerArquivo(jogo, "Cartas.xml");
+        baralhoGeral.instanciarMedia();
         jogo.verCartasJogo();
     }
 }

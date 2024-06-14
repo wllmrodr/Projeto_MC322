@@ -18,10 +18,11 @@ public class Jogo {
         for (Carta carta : baralhoGeral.getBaralho()){
             System.out.println("Nome: "+ carta.getNome()
                     + "\nFofura: "+ carta.getFofura()
-                    + "\nBrincalhão: "+ carta.getBrincalhao()
-                    + "\nAgressividade: "+ carta.getAgressividade()
                     + "\nAgilidade: "+ carta.getAgilidade()
+                    + "\nAgressividade: "+ carta.getAgressividade()
+                    + "\nBrincalhão: "+ carta.getBrincalhao()
                     + "\nObediência: "+ carta.getObediencia()
+                    + "\n"
             );
         }
     }

@@ -2,12 +2,40 @@ import java.util.ArrayList;
 
 public abstract class Baralho {
     protected ArrayList<Carta> baralho;
-    private static int fofuraMedia;
-    private static int brincalhaoMedia;
-    private static int agressividadeMedia;
-    private static int agilidadeMedia;
-    private static int obedienciaMedia;
+    private static float fofuraMedia;
+    private static float brincalhaoMedia;
+    private static float agressividadeMedia;
+    private static float agilidadeMedia;
+    private static float obedienciaMedia;
     private int quantidade;
+
+    public void instanciarMedia(){
+        float i = 0;
+        float fofuraMedia_ = 0;
+        float brincalhaoMedia_ = 0;
+        float agressividadeMedia_ = 0;
+        float agilidadeMedia_ = 0;
+        float obedienciaMedia_ = 0;
+        for(Carta carta : baralho){
+            i++;
+            fofuraMedia_ = fofuraMedia_ + carta.getFofura();
+            brincalhaoMedia_ = brincalhaoMedia_ + carta.getBrincalhao();
+            agressividadeMedia_ = agressividadeMedia_ + carta.getAgressividade();
+            agilidadeMedia_ = agilidadeMedia_ + carta.getAgilidade();
+            obedienciaMedia_ = obedienciaMedia_ + carta.getObediencia();
+        }
+        fofuraMedia = fofuraMedia_/i;
+        brincalhaoMedia = brincalhaoMedia_/i;
+        agressividadeMedia = agressividadeMedia_/i;
+        agilidadeMedia = agilidadeMedia_/i;
+        obedienciaMedia = obedienciaMedia_/i;
+
+        System.out.println(fofuraMedia);
+        System.out.println(brincalhaoMedia);
+        System.out.println(agressividadeMedia);
+        System.out.println(agilidadeMedia);
+        System.out.println(obedienciaMedia);
+    }
 
     public ArrayList<Carta> getBaralho() {
         return baralho;
@@ -17,7 +45,7 @@ public abstract class Baralho {
         this.baralho = baralho;
     }
 
-    public static int getFofuraMedia() {
+    public static float getFofuraMedia() {
         return fofuraMedia;
     }
 
@@ -25,7 +53,7 @@ public abstract class Baralho {
         Baralho.fofuraMedia = fofuraMedia;
     }
 
-    public static int getBrincalhaoMedia() {
+    public static float getBrincalhaoMedia() {
         return brincalhaoMedia;
     }
 
@@ -33,7 +61,7 @@ public abstract class Baralho {
         Baralho.brincalhaoMedia = brincalhaoMedia;
     }
 
-    public static int getAgressividadeMedia() {
+    public static float getAgressividadeMedia() {
         return agressividadeMedia;
     }
 
@@ -41,7 +69,7 @@ public abstract class Baralho {
         Baralho.agressividadeMedia = agressividadeMedia;
     }
 
-    public static int getAgilidadeMedia() {
+    public static float getAgilidadeMedia() {
         return agilidadeMedia;
     }
 
@@ -49,7 +77,7 @@ public abstract class Baralho {
         Baralho.agilidadeMedia = agilidadeMedia;
     }
 
-    public static int getObedienciaMedia() {
+    public static float getObedienciaMedia() {
         return obedienciaMedia;
     }
 
