@@ -1,6 +1,3 @@
-package controllers;
-
-import models.*;
 public class Jogo {
     private JogadorMaquina jogadorMaquina;
     private JogadorReal jogadorReal;
