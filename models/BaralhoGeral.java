@@ -14,14 +14,14 @@ public class BaralhoGeral extends Baralho {
     }
 
     // Método para distribuir cartas entre dois jogadores
-    public void distribuirCartas(Jogador jogador, JogadorMaquina jogadorMaquina) {
+    public void distribuirCartas(Jogador jogadorReal, JogadorMaquina jogadorMaquina) {
         int totalCartas = baralho.size();
         int metade = totalCartas / 2;
 
         // Distribui a primeira metade das cartas para o jogador
         for (int i = 0; i < metade; i++) {
             Carta carta = baralho.remove(0);
-            jogador.receberCarta(carta);
+            jogadorReal.receberCarta(carta);
         }
 
         // Distribui a segunda metade das cartas para o jogador máquina

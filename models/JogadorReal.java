@@ -7,4 +7,8 @@ public class JogadorReal extends Jogador{
         this.nome = nome;
         this.baralhoMao = new BaralhoMao();
     }
+
+    public BaralhoMao getBaralhoMao(){
+        return baralhoMao;
+    }
 }

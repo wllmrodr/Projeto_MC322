@@ -6,4 +6,8 @@ public class JogadorMaquina extends Jogador{
         super();
         this.dificuldadeJogo = dificuldadeJogo;
     }
+
+    public BaralhoMao getBaralhoMao(){
+        return baralhoMao;
+    }
 }

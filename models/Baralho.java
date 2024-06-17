@@ -39,6 +39,7 @@ public abstract class Baralho {
         System.out.println(obedienciaMedia);
     }
 
+
     public ArrayList<Carta> getBaralho() {
         return baralho;
     }
