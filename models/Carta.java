@@ -1,3 +1,5 @@
+package models;
+
 public class Carta {
     private String nome;
     private int fofura;
