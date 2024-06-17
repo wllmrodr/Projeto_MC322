@@ -29,7 +29,7 @@ public class Jogo {
         }else {
             vencedor = false;
         }
-        //se vencedor = true, nossa rodada. Se false, computador que escolhe.
+        //se vencedor = true, rodada jogador Real. Se false, computador que escolhe.
 
         boolean parada = true;
         while (parada){
