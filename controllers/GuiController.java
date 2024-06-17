@@ -8,7 +8,6 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,16 +24,15 @@ public class GuiController implements Initializable {
     private void handleStartGame(ActionEvent event) {
         System.out.println("Iniciando o jogo...");
 
-        // Load the FXML file
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/main.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/game.fxml"));
         try {
             Parent root = loader.load();
 
-            // Get the current stage
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            // Configura o tamanho inicial da nova cena
+            Scene scene = new Scene(root, 800, 600);
 
-            // Set the new scene onto the stage
-            stage.setScene(new Scene(root));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(scene);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

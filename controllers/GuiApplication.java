@@ -15,8 +15,8 @@ public class GuiApplication extends Application {
         // Configura o título da janela principal
         primaryStage.setTitle("Super Trunfo");
 
-        // Define a cena com o root carregado do FXML
-        primaryStage.setScene(new Scene(root, 1920, 1080)); // Ajusta tamanho conforme necessário
+        // Define a cena com o root carregado do FXML e um tamanho inicial razoável
+        primaryStage.setScene(new Scene(root, 800, 600)); // Ajusta tamanho conforme necessário
 
         // Exibe a janela
         primaryStage.show();

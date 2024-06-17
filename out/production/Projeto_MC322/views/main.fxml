@@ -3,17 +3,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
-
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.image.Image?>
+
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="controllers.GuiController">
 
-    <ImageView fitWidth="1300" fitHeight="720" preserveRatio="false">
-        <image>
-            <Image url="@assets/Inicial.png"/>
-        </image>
-    </ImageView>
+    <Pane maxWidth="800" maxHeight="600">
+        <StackPane alignment="CENTER">
+            <ImageView fitWidth="800" fitHeight="600" preserveRatio="false">
+                <image>
+                    <Image url="@assets/Inicial.png"/>
+                </image>
+            </ImageView>
 
-    <Button text="Começar Jogo" onAction="#handleStartGame" StackPane.alignment="BOTTOM_CENTER"/>
+            <Button text="Começar Jogo" onAction="#handleStartGame" StackPane.alignment="BOTTOM_CENTER"/>
+        </StackPane>
+    </Pane>
 </StackPane>
