@@ -23,20 +23,22 @@ public class GuiController implements Initializable {
 
     @FXML
     private void handleStartGame(ActionEvent event) {
-        // Lógica para começar o jogo
         System.out.println("Iniciando o jogo...");
 
-        // Exemplo: Carregar uma nova cena ou tela após iniciar o jogo
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/jogo.fxml"));
-        Parent root = null;
+        // Load the FXML file
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/main.fxml"));
         try {
-            root = loader.load();
+            Parent root = loader.load();
+
+            // Get the current stage
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Set the new scene onto the stage
+            stage.setScene(new Scene(root));
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+            // Handle any potential loading errors here
         }
-
-        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        stage.setScene(new Scene(root));
-        stage.show();
     }
 }
