@@ -19,7 +19,21 @@ public class Jogo {
         return baralhoGeral;
     }
 
+    private boolean verificaSeAcabou(){
+        if (jogadorReal.getBaralhoMao().getBaralho().size() == 32){
+            System.out.println("PARABÉNS! VOCE GANHOU!!");
+            return false;
+        }
+        if (jogadorMaquina.getBaralhoMao().getBaralho().size() == 32){
+            System.out.println("Infelizmente o computador te superou no trunfo...");
+            return false;
+        }
+        return true;
+    }
+
     public void loopDeJogo(){
+
+        baralhoGeral.embaralhar();
         baralhoGeral.distribuirCartas(jogadorReal, jogadorMaquina);
         Random rand = new Random();
         int aleatorio = rand.nextInt(2);
@@ -33,6 +47,7 @@ public class Jogo {
 
         boolean parada = true;
         while (parada){
+
             if(vencedor){
                 Scanner scanner = new Scanner(System.in);
                 System.out.println("Qual atributo você escolhe? Digite o número do atributo desejado.\n\n" +
@@ -42,7 +57,7 @@ public class Jogo {
                     case "1":
 
                 }
-
+                parada = verificaSeAcabou();
 
             }
         }
