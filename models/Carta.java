@@ -64,4 +64,15 @@ public class Carta {
     public void setObediencia(int obediencia) {
         this.obediencia = obediencia;
     }
+
+    public void printarCarta() {
+            System.out.println("Nome: " + nome
+                    + "\nFofura: " + fofura
+                    + "\nAgilidade: " + agilidade
+                    + "\nAgressividade: " + agressividade
+                    + "\nBrincalhão: " + brincalhao
+                    + "\nObediência: " + obediencia
+                    + "\n");
+        }
+
 }

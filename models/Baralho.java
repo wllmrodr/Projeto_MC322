@@ -5,9 +5,9 @@ import java.util.ArrayList;
 public abstract class Baralho {
     protected ArrayList<Carta> baralho;
     private static float fofuraMedia;
-    private static float brincalhaoMedia;
-    private static float agressividadeMedia;
     private static float agilidadeMedia;
+    private static float agressividadeMedia;
+    private static float brincalhaoMedia;
     private static float obedienciaMedia;
     private int quantidade;
 

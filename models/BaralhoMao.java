@@ -9,6 +9,10 @@ public class BaralhoMao extends Baralho {
         super();
         this.baralho = new ArrayList<Carta>();
     }
+
+    public int tamanhoBaralho(){
+        return baralho.size();
+    }
     
     // Método para colocar uma carta no fim do baralho
     public void colocarCartaNoFim(Carta carta) {
