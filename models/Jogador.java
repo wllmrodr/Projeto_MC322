@@ -8,17 +8,19 @@ public abstract class Jogador {
     }
 
     public void receberCarta(Carta carta) {
-        baralhoMao.colocarCartaNoFim(carta);
+        baralhoMao.getBaralho().add(carta);
     }
 
-    public Carta perderCarta() {
-        if (!baralhoMao.getBaralho().isEmpty()) {
-            return baralhoMao.getBaralho().remove(0);
-        }
-        return null;
+    public void perderCarta() {
+        baralhoMao.perderCarta();
     }
 
     public BaralhoMao getBaralhoMao() {
         return baralhoMao;
+    }
+
+    public void ganharCartaDeOutroJogador(Jogador outroJogador, Carta carta) {
+        outroJogador.perderCarta();
+        this.receberCarta(carta);
     }
 }
