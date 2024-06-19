@@ -1,4 +1,5 @@
 package controllers;
+
 import models.*;
 
 import java.util.Random;
@@ -8,6 +9,7 @@ public class Jogo {
     private JogadorMaquina jogadorMaquina;
     private JogadorReal jogadorReal;
     private BaralhoGeral baralhoGeral;
+    private Jogador perdedorAnterior; // Novo campo para rastrear o perdedor anterior
 
     public Jogo(JogadorMaquina jogadorMaquina, JogadorReal jogadorReal, BaralhoGeral baralhoGeral) {
         this.jogadorMaquina = jogadorMaquina;
@@ -32,7 +34,6 @@ public class Jogo {
     }
 
     private boolean compararCategoria(String categoria) {
-        boolean empate = false;
         while (true) {
             Carta cartaJogador = jogadorReal.getBaralhoMao().getBaralho().get(0);
             Carta cartaMaquina = jogadorMaquina.getBaralhoMao().getBaralho().get(0);
@@ -66,14 +67,24 @@ public class Jogo {
 
             if (valorJogador > valorMaquina) {
                 jogadorReal.ganharCartaDeOutroJogador(jogadorMaquina, cartaMaquina);
+                perdedorAnterior = jogadorMaquina; // Atualiza o perdedor anterior
                 return true;
             } else if (valorJogador < valorMaquina) {
                 jogadorMaquina.ganharCartaDeOutroJogador(jogadorReal, cartaJogador);
+                perdedorAnterior = jogadorReal; // Atualiza o perdedor anterior
                 return false;
             } else {
-                empate = true;
-                jogadorReal.getBaralhoMao().colocarCartaNoFim(cartaJogador);
-                jogadorMaquina.getBaralhoMao().colocarCartaNoFim(cartaMaquina);
+                // Empate: aplica o novo critério de desempate
+                if (perdedorAnterior == null) {
+                    // Se não houver um perdedor anterior, considere empate novamente
+                    jogadorReal.getBaralhoMao().colocarCartaNoFim(cartaJogador);
+                    jogadorMaquina.getBaralhoMao().colocarCartaNoFim(cartaMaquina);
+                } else if (perdedorAnterior instanceof JogadorReal) {
+                    jogadorReal.ganharCartaDeOutroJogador(jogadorMaquina, cartaMaquina);
+                } else {
+                    jogadorMaquina.ganharCartaDeOutroJogador(jogadorReal, cartaJogador);
+                }
+                return true; // Após o desempate, jogadorReal começa a próxima rodada
             }
         }
     }
