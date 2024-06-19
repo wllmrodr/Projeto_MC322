@@ -10,11 +10,13 @@ public class Jogo {
     private JogadorReal jogadorReal;
     private BaralhoGeral baralhoGeral;
     private Jogador perdedorAnterior; // Novo campo para rastrear o perdedor anterior
+    private boolean primeiraRodada; // Novo campo para verificar se é a primeira rodada
 
     public Jogo(JogadorMaquina jogadorMaquina, JogadorReal jogadorReal, BaralhoGeral baralhoGeral) {
         this.jogadorMaquina = jogadorMaquina;
         this.jogadorReal = jogadorReal;
         this.baralhoGeral = baralhoGeral;
+        this.primeiraRodada = true; // Inicializa como verdadeira
     }
 
     public BaralhoGeral getBaralhoGeral() {
@@ -68,14 +70,21 @@ public class Jogo {
             if (valorJogador > valorMaquina) {
                 jogadorReal.ganharCartaDeOutroJogador(jogadorMaquina, cartaMaquina);
                 perdedorAnterior = jogadorMaquina; // Atualiza o perdedor anterior
+                primeiraRodada = false; // Define como não sendo mais a primeira rodada
                 return true;
             } else if (valorJogador < valorMaquina) {
                 jogadorMaquina.ganharCartaDeOutroJogador(jogadorReal, cartaJogador);
                 perdedorAnterior = jogadorReal; // Atualiza o perdedor anterior
+                primeiraRodada = false; // Define como não sendo mais a primeira rodada
                 return false;
             } else {
                 // Empate: aplica o novo critério de desempate
-                if (perdedorAnterior == null) {
+                if (primeiraRodada) {
+                    // Se for a primeira rodada, Jogador Real ganha
+                    jogadorReal.ganharCartaDeOutroJogador(jogadorMaquina, cartaMaquina);
+                    primeiraRodada = false; // Define como não sendo mais a primeira rodada
+                    return true;
+                } else if (perdedorAnterior == null) {
                     // Se não houver um perdedor anterior, considere empate novamente
                     jogadorReal.getBaralhoMao().colocarCartaNoFim(cartaJogador);
                     jogadorMaquina.getBaralhoMao().colocarCartaNoFim(cartaMaquina);
@@ -128,3 +137,4 @@ public class Jogo {
         }
     }
 }
+
