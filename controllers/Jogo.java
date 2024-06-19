@@ -9,8 +9,8 @@ public class Jogo {
     private JogadorMaquina jogadorMaquina;
     private JogadorReal jogadorReal;
     private BaralhoGeral baralhoGeral;
-    private Jogador perdedorAnterior; // Novo campo para rastrear o perdedor anterior
-    private boolean primeiraRodada; // Novo campo para verificar se é a primeira rodada
+    private Jogador perdedorAnterior; // Campo para rastrear o perdedor anterior
+    private boolean primeiraRodada; // Campo para verificar se é a primeira rodada
 
     public Jogo(JogadorMaquina jogadorMaquina, JogadorReal jogadorReal, BaralhoGeral baralhoGeral) {
         this.jogadorMaquina = jogadorMaquina;
