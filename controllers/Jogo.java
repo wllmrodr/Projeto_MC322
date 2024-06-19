@@ -69,31 +69,24 @@ public class Jogo {
 
             if (valorJogador > valorMaquina) {
                 jogadorReal.ganharCartaDeOutroJogador(jogadorMaquina, cartaMaquina);
-                perdedorAnterior = jogadorMaquina; // Atualiza o perdedor anterior
-                primeiraRodada = false; // Define como não sendo mais a primeira rodada
+                perdedorAnterior = jogadorMaquina;
                 return true;
             } else if (valorJogador < valorMaquina) {
                 jogadorMaquina.ganharCartaDeOutroJogador(jogadorReal, cartaJogador);
-                perdedorAnterior = jogadorReal; // Atualiza o perdedor anterior
-                primeiraRodada = false; // Define como não sendo mais a primeira rodada
+                perdedorAnterior = jogadorReal;
                 return false;
             } else {
-                // Empate: aplica o novo critério de desempate
+                // Em caso de empate, as cartas vão para o final dos respectivos baralhos
+                jogadorReal.getBaralhoMao().colocarCartaNoFim(cartaJogador);
+                jogadorMaquina.getBaralhoMao().colocarCartaNoFim(cartaMaquina);
+
+                // Verifica se é a primeira rodada
                 if (primeiraRodada) {
-                    // Se for a primeira rodada, Jogador Real ganha
-                    jogadorReal.ganharCartaDeOutroJogador(jogadorMaquina, cartaMaquina);
-                    primeiraRodada = false; // Define como não sendo mais a primeira rodada
-                    return true;
-                } else if (perdedorAnterior == null) {
-                    // Se não houver um perdedor anterior, considere empate novamente
-                    jogadorReal.getBaralhoMao().colocarCartaNoFim(cartaJogador);
-                    jogadorMaquina.getBaralhoMao().colocarCartaNoFim(cartaMaquina);
-                } else if (perdedorAnterior instanceof JogadorReal) {
-                    jogadorReal.ganharCartaDeOutroJogador(jogadorMaquina, cartaMaquina);
+                    return true; // Jogador Real ganha no desempate da primeira rodada
                 } else {
-                    jogadorMaquina.ganharCartaDeOutroJogador(jogadorReal, cartaJogador);
+                    // Quem perdeu na rodada anterior ganha no desempate
+                    return perdedorAnterior != jogadorReal;
                 }
-                return true; // Após o desempate, jogadorReal começa a próxima rodada
             }
         }
     }
@@ -101,9 +94,8 @@ public class Jogo {
     public void loopDeJogo() {
         baralhoGeral.embaralhar();
         baralhoGeral.distribuirCartas(jogadorReal, jogadorMaquina);
-        Random rand = new Random();
-        int aleatorio = rand.nextInt(2);
-        boolean vencedor = aleatorio == 0;  // Se vencedor = true, rodada jogador Real. Se false, computador escolhe.
+        boolean vencedor = true; // Jogador Real começa a primeira rodada
+        primeiraRodada = true; // Reseta a primeira rodada
 
         boolean parada = true;
         while (parada) {
@@ -115,13 +107,14 @@ public class Jogo {
                 vencedor = compararCategoria(escolha);  // Determina o vencedor da próxima rodada com base na comparação
                 parada = verificaSeAcabou();
             } else {
-                // Lógica para o computador escolher um atributo (simplesmente escolhemos um atributo aleatório aqui)
-                String[] atributos = {"1", "2", "3", "4", "5"};
-                String escolhaComputador = atributos[rand.nextInt(atributos.length)];
+                // Lógica para o computador escolher um atributo
+                Carta cartaComputador = jogadorMaquina.getBaralhoMao().getBaralho().get(0);
+                String escolhaComputador = jogadorMaquina.escolheCategoria(cartaComputador);
                 System.out.println("Computador escolheu o atributo " + escolhaComputador);
                 vencedor = !compararCategoria(escolhaComputador);  // O computador escolhe, então inverte o resultado
                 parada = verificaSeAcabou();
             }
+            primeiraRodada = false; // Define que a primeira rodada já foi
         }
     }
 
@@ -137,4 +130,3 @@ public class Jogo {
         }
     }
 }
-
