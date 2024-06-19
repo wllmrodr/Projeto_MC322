@@ -1,33 +1,21 @@
 package models;
+
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class BaralhoGeral extends Baralho {
     public BaralhoGeral() {
         super();
-        this.baralho = new ArrayList<Carta>();
+        this.baralho = new ArrayList<>();
     }
 
-    // Método para embaralhar as cartas no baralho
-    public void embaralhar() {
-        Collections.shuffle(baralho);
-    }
-
-    // Método para distribuir cartas entre dois jogadores
     public void distribuirCartas(Jogador jogadorReal, JogadorMaquina jogadorMaquina) {
-        int totalCartas = baralho.size();
-        int metade = totalCartas / 2;
-
-        // Distribui a primeira metade das cartas para o jogador
+        int metade = baralho.size() / 2;
         for (int i = 0; i < metade; i++) {
-            Carta carta = baralho.remove(0);
-            jogadorReal.receberCarta(carta);
+            jogadorReal.receberCarta(baralho.get(i));
         }
-
-        // Distribui a segunda metade das cartas para o jogador máquina
-        while (!baralho.isEmpty()) {
-            Carta carta = baralho.remove(0);
-            jogadorMaquina.receberCarta(carta);
+        for (int i = metade; i < baralho.size(); i++) {
+            jogadorMaquina.receberCarta(baralho.get(i));
         }
+        baralho.clear();
     }
 }
