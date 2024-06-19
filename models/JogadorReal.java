@@ -1,14 +1,7 @@
 package models;
 
-public class JogadorReal extends Jogador{
-    private String nome;
-    public JogadorReal(String nome) {
+public class JogadorReal extends Jogador {
+    public JogadorReal() {
         super();
-        this.nome = nome;
-        this.baralhoMao = new BaralhoMao();
-    }
-
-    public BaralhoMao getBaralhoMao(){
-        return baralhoMao;
     }
 }
