@@ -7,17 +7,26 @@ import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 public class Jogo {
+    private static Jogo instancia;
     private JogadorMaquina jogadorMaquina;
     private JogadorReal jogadorReal;
     private BaralhoGeral baralhoGeral;
     private Jogador perdedorAnterior; // Campo para rastrear o perdedor anterior
     private boolean primeiraRodada; // Campo para verificar se é a primeira rodada
 
-    public Jogo(JogadorMaquina jogadorMaquina, JogadorReal jogadorReal, BaralhoGeral baralhoGeral) {
+    private Jogo(JogadorMaquina jogadorMaquina, JogadorReal jogadorReal, BaralhoGeral baralhoGeral) {
         this.jogadorMaquina = jogadorMaquina;
         this.jogadorReal = jogadorReal;
         this.baralhoGeral = baralhoGeral;
         this.primeiraRodada = true; // Inicializa como verdadeira
+    }
+
+    public static Jogo getInstance(JogadorMaquina jogadorMaquina, JogadorReal jogadorReal, BaralhoGeral baralhoGeral){
+        if(instancia == null){
+            instancia = new Jogo(jogadorMaquina,jogadorReal, baralhoGeral);
+            return instancia;
+        }
+        return instancia;
     }
 
     public BaralhoGeral getBaralhoGeral() {
@@ -113,19 +122,19 @@ public class Jogo {
             if (vencedor) {
                 Scanner scanner = new Scanner(System.in);
                 pausinha(1000);
-                System.out.println("Sua primeira carta do baralho é: ");
+                System.out.println("\nSua primeira carta do baralho é: \n");
                 jogadorReal.getBaralhoMao().getBaralho().get(0).printarCarta();
-                pausinha(3000);
+                pausinha(1500);
                 System.out.println("Qual atributo você escolhe? Digite o número do atributo desejado.\n\n" +
                         "1) Fofura\n2) Agilidade\n3) Agressividade\n4) Brincalhão\n5) Obediência");
-                String escolha = scanner.nextLine();
+                String escolha = escolherAtributo();
                 pausinha(2000);
 
                 jogadorMaquina.getBaralhoMao().getBaralho().get(0).printarCarta();
                 vencedor = compararCategoria(escolha);  // Determina o vencedor da próxima rodada com base na comparação
                 parada = verificaSeAcabou();
             } else {
-                System.out.println("Agora é a vez do computador escolher... sua carta é:");
+                System.out.println("\nAgora é a vez do computador escolher... sua carta é:\n");
                 pausinha(2000);
                 jogadorReal.getBaralhoMao().getBaralho().get(0).printarCarta();
                 pausinha(2000);
@@ -150,6 +159,26 @@ public class Jogo {
             Thread.currentThread().interrupt();
         }
     }
+
+    private String escolherAtributo(){
+        boolean loop = true;
+        Scanner scanner = new Scanner(System.in);
+        while(loop){
+            String atributo = scanner.nextLine();
+            switch (atributo){
+                case "1": return  "1";
+                case "2": return  "2";
+                case "3": return  "3";
+                case "4": return  "4";
+                case "5": return  "5";
+            }
+            if(loop) {
+                System.out.println("Digite uma opção válida!");
+            }
+        }
+        return null;
+    }
+
     public void verCartasJogo() {
         for (Carta carta : baralhoGeral.getBaralho()) {
             System.out.println("Nome: " + carta.getNome()

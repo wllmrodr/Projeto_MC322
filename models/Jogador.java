@@ -12,7 +12,9 @@ public abstract class Jogador {
     }
 
     public void perderCarta() {
-        baralhoMao.perderCarta();
+        BaralhoMaoView view = new BaralhoMaoView();
+        BaralhoMaoController controller = new BaralhoMaoController(baralhoMao, view);
+        controller.perderCarta();
     }
 
     public BaralhoMao getBaralhoMao() {

@@ -43,46 +43,18 @@ public abstract class Baralho {
         return fofuraMedia;
     }
 
-    public static void setFofuraMedia(int fofuraMedia) {
-        Baralho.fofuraMedia = fofuraMedia;
-    }
 
     public static float getBrincalhaoMedia() {
         return brincalhaoMedia;
-    }
-
-    public static void setBrincalhaoMedia(int brincalhaoMedia) {
-        Baralho.brincalhaoMedia = brincalhaoMedia;
     }
 
     public static float getAgressividadeMedia() {
         return agressividadeMedia;
     }
 
-    public static void setAgressividadeMedia(int agressividadeMedia) {
-        Baralho.agressividadeMedia = agressividadeMedia;
-    }
-
     public static float getAgilidadeMedia() {
         return agilidadeMedia;
     }
-
-    public static void setAgilidadeMedia(int agilidadeMedia) {
-        Baralho.agilidadeMedia = agilidadeMedia;
-    }
-
-    public static float getObedienciaMedia() {
-        return obedienciaMedia;
-    }
-
-    public static void setObedienciaMedia(int obedienciaMedia) {
-        Baralho.obedienciaMedia = obedienciaMedia;
-    }
-
-    public int getQuantidade() {
-        return quantidade;
-    }
-
     public void embaralhar() {
         Collections.shuffle(baralho);
     }
@@ -91,21 +63,4 @@ public abstract class Baralho {
         return baralho;
     }
 
-    public void setBaralho(ArrayList<Carta> baralho) {
-        this.baralho = baralho;
-    }
-
-    public void setQuantidade(int quantidade) {
-        this.quantidade = quantidade;
-    }
-    public Carta removerCartaDoTopo() {
-        if (!baralho.isEmpty()) {
-            return baralho.remove(0);
-        }
-        return null;
-    }
-
-    public void adicionarCarta(Carta carta) {
-        baralho.add(carta);
-    }
 }
