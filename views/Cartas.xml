@@ -89,11 +89,11 @@
     </Carta>
     <Carta>
         <nome>Vira-lata Caramelo</nome>
-        <fofura>10</fofura>
-        <agilidade>10</agilidade>
-        <agressividade>10</agressividade>
-        <brincalhão>10</brincalhão>
-        <obediencia>10</obediencia>
+        <fofura>8</fofura>
+        <agilidade>8</agilidade>
+        <agressividade>8</agressividade>
+        <brincalhão>8</brincalhão>
+        <obediencia>8</obediencia>
     </Carta>
     <Carta>
         <nome>Samoieda</nome>

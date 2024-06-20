@@ -21,6 +21,8 @@ public abstract class Jogador {
 
     public void ganharCartaDeOutroJogador(Jogador outroJogador, Carta carta) {
         outroJogador.perderCarta();
+        this.receberCarta(this.baralhoMao.getBaralho().get(0));
+        this.perderCarta();
         this.receberCarta(carta);
     }
 }

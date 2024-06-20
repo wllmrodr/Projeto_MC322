@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BaralhoGeral extends Baralho {
     public BaralhoGeral() {
@@ -8,6 +9,9 @@ public class BaralhoGeral extends Baralho {
         this.baralho = new ArrayList<>();
     }
 
+    public void embaralhar() {
+        Collections.shuffle(baralho);
+    }
     public void distribuirCartas(Jogador jogadorReal, JogadorMaquina jogadorMaquina) {
         int metade = baralho.size() / 2;
         for (int i = 0; i < metade; i++) {

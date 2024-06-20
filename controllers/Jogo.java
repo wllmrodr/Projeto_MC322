@@ -4,6 +4,7 @@ import models.*;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 public class Jogo {
     private JogadorMaquina jogadorMaquina;
@@ -77,8 +78,13 @@ public class Jogo {
                 return false;
             } else {
                 // Em caso de empate, as cartas vão para o final dos respectivos baralhos
-                jogadorReal.getBaralhoMao().colocarCartaNoFim(cartaJogador);
-                jogadorMaquina.getBaralhoMao().colocarCartaNoFim(cartaMaquina);
+                if (perdedorAnterior==jogadorReal){
+                    jogadorReal.ganharCartaDeOutroJogador(jogadorMaquina, cartaMaquina);
+                    perdedorAnterior = jogadorMaquina;
+                } else {
+                    jogadorMaquina.ganharCartaDeOutroJogador(jogadorReal, cartaJogador);
+                    perdedorAnterior = jogadorReal;
+                }
 
                 // Verifica se é a primeira rodada
                 if (primeiraRodada) {
@@ -98,26 +104,52 @@ public class Jogo {
         primeiraRodada = true; // Reseta a primeira rodada
 
         boolean parada = true;
+        int i =0;
         while (parada) {
+            pausinha(2000);
+            System.out.println("RODADA "+i);
+            System.out.println("Quantidade de cartas "+jogadorReal.getNome() + " :" + jogadorReal.getBaralhoMao().getBaralho().size());
+            System.out.println("Quantidade de cartas CPU :" + jogadorMaquina.getBaralhoMao().getBaralho().size());
             if (vencedor) {
                 Scanner scanner = new Scanner(System.in);
+                pausinha(1000);
+                System.out.println("Sua primeira carta do baralho é: ");
+                jogadorReal.getBaralhoMao().getBaralho().get(0).printarCarta();
+                pausinha(3000);
                 System.out.println("Qual atributo você escolhe? Digite o número do atributo desejado.\n\n" +
                         "1) Fofura\n2) Agilidade\n3) Agressividade\n4) Brincalhão\n5) Obediência");
                 String escolha = scanner.nextLine();
+                pausinha(2000);
+
+                jogadorMaquina.getBaralhoMao().getBaralho().get(0).printarCarta();
                 vencedor = compararCategoria(escolha);  // Determina o vencedor da próxima rodada com base na comparação
                 parada = verificaSeAcabou();
             } else {
+                System.out.println("Agora é a vez do computador escolher... sua carta é:");
+                pausinha(2000);
+                jogadorReal.getBaralhoMao().getBaralho().get(0).printarCarta();
+                pausinha(2000);
                 // Lógica para o computador escolher um atributo
                 Carta cartaComputador = jogadorMaquina.getBaralhoMao().getBaralho().get(0);
-                String escolhaComputador = jogadorMaquina.escolheCategoria(cartaComputador);
+                String escolhaComputador = jogadorMaquina.escolheCategoria(jogadorMaquina.getDificuldadeJogo(), cartaComputador);
                 System.out.println("Computador escolheu o atributo " + escolhaComputador);
-                vencedor = !compararCategoria(escolhaComputador);  // O computador escolhe, então inverte o resultado
+                pausinha(1000);
+                jogadorMaquina.getBaralhoMao().getBaralho().get(0).printarCarta();
+                vencedor = compararCategoria(escolhaComputador);  // O computador escolhe, então inverte o resultado
                 parada = verificaSeAcabou();
             }
             primeiraRodada = false; // Define que a primeira rodada já foi
+            i++;
         }
     }
 
+    public void pausinha(int i){
+        try {
+            Thread.sleep(i);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
     public void verCartasJogo() {
         for (Carta carta : baralhoGeral.getBaralho()) {
             System.out.println("Nome: " + carta.getNome()

@@ -9,6 +9,10 @@ public class JogadorMaquina extends Jogador{
         this.dificuldadeJogo = dificuldadeJogo;
     }
 
+    public DificuldadeJogo getDificuldadeJogo() {
+        return dificuldadeJogo;
+    }
+
     public BaralhoMao getBaralhoMao(){
         return baralhoMao;
     }

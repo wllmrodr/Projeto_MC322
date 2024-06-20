@@ -12,8 +12,7 @@ public class Main {
                 "\n2)Cada carta é um cachorro, com suas respectivas pontuações para FOFURA, AGILIDADE, AGRESSIVIDADE, BRINCALHÃO e OBEDIÊNCIA." +
                 "\n\n3)Você só pode usar a primeira carta do seu baralho." +
                 "\n\n4)No começo do jogo, um jogador é sorteado para escolher um atributo, ambas as cartas duelam e a que tiver maior valor ganha e coloca ambas as cartas no final de seu baralho. E inicia uma nova rodada, com o vencedor escolhendo o atributo." +
-                "\n\n5)Em caso de empate (explicação)" +
-                "\n\n6) A regra 4) não é valida, caso a carta mágica, o TRUNFO é jogado, (explicação)");
+                "\n\n5)Em caso de empate o jogador que fez a escolha de atributo tem a DESVANTAGEM");
 
         System.out.println("Digite seu nome:");
         Scanner scanner = new Scanner(System.in);
@@ -22,17 +21,28 @@ public class Main {
         LerCarta lerCarta = new LerCarta();
         JogadorReal jogadorReal = new JogadorReal(nome);
 
-        //Aqui o jogador escolhe o modo
+        System.out.println("Qual dificuldade você deseja? Digite o número do atributo desejado.\n\n" +
+                "1) Fácil\n2) Medio\n3) Dificil\n4) Impossivel");
 
-        DificuldadeJogo dificuldadeJogo = DificuldadeJogo.FACIL;
+        DificuldadeJogo dificuldadeJogo= null;
+
+        String dificuldade = scanner.nextLine();
+
+        switch (dificuldade){
+            case "1": dificuldadeJogo = DificuldadeJogo.FACIL;
+            case "2": dificuldadeJogo = DificuldadeJogo.MEDIO;
+            case "3": dificuldadeJogo = DificuldadeJogo.DIFICIL;
+            case "4": dificuldadeJogo = DificuldadeJogo.IMPOSSIVEL;
+        }
 
         JogadorMaquina jogadorMaquina = new JogadorMaquina(dificuldadeJogo);
         BaralhoGeral baralhoGeral = new BaralhoGeral();
 
         Jogo jogo = new Jogo(jogadorMaquina, jogadorReal, baralhoGeral);
-        lerCarta.lerArquivo(jogo, "Cartas.xml");
+        lerCarta.lerArquivo(jogo, "views\\Cartas.xml");
+
         baralhoGeral.instanciarMedia();
 
-        jogo.verCartasJogo();
+        jogo.loopDeJogo();
     }
 }
