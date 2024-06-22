@@ -146,7 +146,7 @@ public class GuiController implements Initializable {
             Carta cartaAtualJogador = jogo.getJogadorReal().getBaralhoMao().getBaralho().get(0);
 
             // Monta o caminho completo da imagem da carta baseado no nome da carta
-            String nomeCarta = cartaAtualJogador.getNome(); // Supondo que o nome esteja correto
+            String nomeCarta = cartaAtualJogador.getNome();
             String caminhoImagem = "/views/assets/cartas/" + nomeCarta + ".png";
 
             // Carrega a imagem correspondente
@@ -156,7 +156,7 @@ public class GuiController implements Initializable {
             } catch (Exception e) {
                 System.out.println("Erro ao carregar imagem: " + e.getMessage());
                 // Tratar exceção ao carregar a imagem
-                cartaImagem.setImage(null); // Pode definir uma imagem padrão ou limpar o ImageView
+                cartaImagem.setImage(null);
             }
         } else {
             // Se não há cartas na mão do jogador, define uma imagem padrão ou vazia
