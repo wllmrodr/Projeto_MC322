@@ -14,7 +14,7 @@
         <StackPane alignment="CENTER">
             <ImageView fitWidth="800" fitHeight="600" preserveRatio="false">
                 <image>
-                    <Image url="@assets/Inicial.png"/>
+                    <Image url="@assets/Inicial.jpg"/>
                 </image>
             </ImageView>
 
