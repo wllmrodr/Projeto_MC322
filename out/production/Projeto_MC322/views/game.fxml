@@ -6,28 +6,50 @@
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<?import java.net.URL?>
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GuiController">
-    <stylesheets>
-        <URL value="/views/styles.css" />
-    </stylesheets>
-    <children>
-        <!-- Seus elementos da interface aqui -->
+<StackPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.GuiController">
+    <!-- Imagem de fundo -->
+    <ImageView>
+        <image>
+            <Image url="/views/fundoTela.jpg"/>
+        </image>
+    </ImageView>
+
+    <!-- Container para os elementos sobre a imagem de fundo -->
+    <AnchorPane prefWidth="800" prefHeight="600" fx:id="anchorPane" xmlns:fx="http://javafx.com/fxml/1">
+        <!-- Margin para manter os elementos afastados da borda -->
+        <padding>
+            <Insets top="20" left="20" right="20" bottom="20"/>
+        </padding>
+
+        <!-- ComboBox e botão Start Game no topo -->
         <ComboBox fx:id="difficultyComboBox" layoutX="14.0" layoutY="14.0" />
         <Button layoutX="300.0" layoutY="14.0" text="Start Game" onAction="#handleStartGame" />
 
+        <!-- Labels e ImageView para mostrar a carta -->
         <Label fx:id="jogadorRealCartas" layoutX="14.0" layoutY="50.0" />
         <Label fx:id="jogadorMaquinaCartas" layoutX="300.0" layoutY="50.0" />
 
         <ImageView fx:id="cartaImagem" layoutX="150.0" layoutY="100.0" fitWidth="300.0" fitHeight="400.0" />
 
-        <TextArea fx:id="cartaAtual" layoutX="14.0" layoutY="520.0" prefHeight="200.0" prefWidth="500.0" />
+        <!-- Pane para alinhar os elementos -->
+        <Pane layoutX="520.0" layoutY="150.0">
+            <!-- TextArea para mostrar informações da carta -->
+            <TextArea fx:id="cartaAtual" prefHeight="200.0" prefWidth="250.0" />
+        </Pane>
 
-        <Button id="1" layoutX="14.0" layoutY="740.0" text="Fofura" onAction="#handleEscolherAtributo" />
-        <Button id="2" layoutX="100.0" layoutY="740.0" text="Agilidade" onAction="#handleEscolherAtributo" />
-        <Button id="3" layoutX="200.0" layoutY="740.0" text="Agressividade" onAction="#handleEscolherAtributo" />
-        <Button id="4" layoutX="300.0" layoutY="740.0" text="Brincalhão" onAction="#handleEscolherAtributo" />
-        <Button id="5" layoutX="400.0" layoutY="740.0" text="Obediência" onAction="#handleEscolherAtributo" />
-    </children>
-</AnchorPane>
+        <!-- VBox para os botões no canto esquerdo inferior -->
+        <VBox layoutX="14.0" layoutY="400.0" spacing="10">
+            <Button id="1" text="Fofura" onAction="#handleEscolherAtributo" />
+            <Button id="2" text="Agilidade" onAction="#handleEscolherAtributo" />
+            <Button id="3" text="Agressividade" onAction="#handleEscolherAtributo" />
+            <Button id="4" text="Brincalhão" onAction="#handleEscolherAtributo" />
+            <Button id="5" text="Obediência" onAction="#handleEscolherAtributo" />
+        </VBox>
+    </AnchorPane>
+</StackPane>

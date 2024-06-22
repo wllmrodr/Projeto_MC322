@@ -19,9 +19,9 @@ public class Jogo {
         this.jogadorRealTurno = true; // Jogador Real começa a primeira rodada
     }
 
-    public static Jogo getInstance(JogadorMaquina jogadorMaquina, JogadorReal jogadorReal, BaralhoGeral baralhoGeral){
-        if(instancia == null){
-            instancia = new Jogo(jogadorMaquina,jogadorReal, baralhoGeral);
+    public static Jogo getInstance(JogadorMaquina jogadorMaquina, JogadorReal jogadorReal, BaralhoGeral baralhoGeral) {
+        if (instancia == null) {
+            instancia = new Jogo(jogadorMaquina, jogadorReal, baralhoGeral);
         }
         return instancia;
     }
@@ -111,6 +111,7 @@ public class Jogo {
 
             if (primeiraRodada) {
                 jogadorRealTurno = true;
+                primeiraRodada = false; // Atualiza após a primeira rodada
                 return true;
             } else {
                 jogadorRealTurno = perdedorAnterior != jogadorReal;
