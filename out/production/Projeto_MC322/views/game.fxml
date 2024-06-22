@@ -30,7 +30,7 @@
         <Label fx:id="jogadorRealCartas" layoutX="14.0" layoutY="50.0" />
         <Label fx:id="jogadorMaquinaCartas" layoutX="300.0" layoutY="50.0" />
 
-        <ImageView fx:id="cartaImagem" layoutX="150.0" layoutY="100.0" fitWidth="300.0" fitHeight="400.0" />
+        <ImageView fx:id="cartaImagem" layoutX="315.0" layoutY="330.0" fitWidth="216.0" fitHeight="288.0" />
 
         <!-- Pane para alinhar os elementos -->
         <Pane layoutX="520.0" layoutY="150.0">
