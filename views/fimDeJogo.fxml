@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="controllers.FimDeJogoController">
+    <children>
+        <ImageView fx:id="resultadoImagem" fitHeight="600.0" fitWidth="800.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+</AnchorPane>

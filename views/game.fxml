@@ -19,7 +19,7 @@
     </ImageView>
 
     <!-- Container para os elementos sobre a imagem de fundo -->
-    <AnchorPane prefWidth="800" prefHeight="600" fx:id="anchorPane" xmlns:fx="http://javafx.com/fxml/1">
+    <AnchorPane prefWidth="800" prefHeight="600" fx:id="anchorPane" xmlns:fx="http://javafx.com/fxml/1" >
         <!-- Margin para manter os elementos afastados da borda -->
         <padding>
             <Insets top="20" left="20" right="20" bottom="20"/>
@@ -29,7 +29,7 @@
         <Label fx:id="jogadorRealCartas" layoutX="662.0" layoutY="550.0" />
         <Label fx:id="jogadorMaquinaCartas" layoutX="660.0" layoutY="530.0" />
 
-        <ImageView fx:id="cartaImagem" layoutX="315.0" layoutY="330.0" fitWidth="216.0" fitHeight="288.0" />
+        <ImageView fx:id="cartaImagem" layoutX="315.0" layoutY="310.0" fitWidth="207.36" fitHeight="276.48" />
 
         <!-- VBox para os botões no canto esquerdo inferior -->
         <VBox layoutX="14.0" layoutY="400.0" spacing="10">

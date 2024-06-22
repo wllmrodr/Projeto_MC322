@@ -14,7 +14,6 @@ public class GuiApplication extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("/views/main.fxml"));
             Scene scene = new Scene(root, 800, 600);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Super Trunfo");
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();

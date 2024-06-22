@@ -6,19 +6,19 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
+<StackPane xmlns="http://javafx.com/javafx/17"
+           xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="controllers.GuiController">
 
     <Pane maxWidth="800" maxHeight="600" prefWidth="800" prefHeight="600">
         <StackPane alignment="CENTER">
             <ImageView fitWidth="800" fitHeight="600" preserveRatio="false">
                 <image>
-                    <Image url="@assets/Inicial.jpg"/>
+                    <Image url="@assets/Inicial.png"/>
                 </image>
             </ImageView>
 
-            <VBox alignment="CENTER" spacing="10">
+            <VBox alignment="CENTER" spacing="10" xmlns:fx="http://javafx.com/fxml/1">
                 <Button fx:id="startGameButton" text="Começar Jogo" onAction="#handleStartGame"/>
                 <ComboBox fx:id="difficultyComboBox" promptText="Selecione a dificuldade"/>
             </VBox>

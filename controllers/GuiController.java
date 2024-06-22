@@ -35,8 +35,6 @@ public class GuiController implements Initializable {
     @FXML
     private Label jogadorMaquinaCartas;
     @FXML
-    private TextArea cartaAtual;
-    @FXML
     private ImageView cartaImagem;
     @FXML
     private AnchorPane anchorPane; // Referência ao AnchorPane do game.fxml
@@ -44,7 +42,7 @@ public class GuiController implements Initializable {
     private Jogo jogo;
 
     @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
+    public void initialize(URL location, ResourceBundle resources) {
         if (difficultyComboBox != null) {
             difficultyComboBox.getItems().addAll("Fácil", "Médio", "Difícil", "Impossível");
         } else {
@@ -108,6 +106,7 @@ public class GuiController implements Initializable {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void handleEscolherAtributo(ActionEvent event) {
         String atributo = ((Node) event.getSource()).getId();
@@ -115,13 +114,12 @@ public class GuiController implements Initializable {
             boolean jogadorRealVenceu = jogo.compararCategoria(atributo);
             atualizarInterface(); // Atualiza a interface após a jogada
             if (jogo.verificarSeAcabou()) {
-                System.out.println("Fim do jogo!");
+                mostrarTelaFimDeJogo(jogo.isJogadorRealVencedor());
             } else if (!jogadorRealVenceu) {
                 handleTurnoComputador();
             }
         }
     }
-
 
     private void handleTurnoComputador() {
         if (jogo != null && !jogo.isJogadorRealTurno()) {
@@ -131,7 +129,7 @@ public class GuiController implements Initializable {
             boolean computadorVenceu = jogo.compararCategoria(escolhaComputador);
             atualizarInterface();
             if (jogo.verificarSeAcabou()) {
-                System.out.println("Fim do jogo!");
+                mostrarTelaFimDeJogo(jogo.isJogadorRealVencedor());
             }
         }
     }
@@ -183,5 +181,31 @@ public class GuiController implements Initializable {
         );
         Background background = new Background(backgroundImage);
         anchorPane.setBackground(background);
+    }
+
+    private void mostrarTelaFimDeJogo(boolean jogadorRealGanhou) {
+        try {
+            // Carregar o arquivo FXML da tela de fim de jogo
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/views/fimDeJogo.fxml"));
+            Parent root = loader.load();
+
+            // Obter o controlador da tela de fim de jogo
+            FimDeJogoController fimDeJogoController = loader.getController();
+
+            // Configurar a imagem de vitória ou derrota
+            if (jogadorRealGanhou) {
+                fimDeJogoController.setImagemDeResultado("/views/assets/victory.png");
+            } else {
+                fimDeJogoController.setImagemDeResultado("/views/assets/defeat.png");
+            }
+
+            // Mostrar a nova cena
+            Stage stage = (Stage) anchorPane.getScene().getWindow();
+            Scene scene = new Scene(root, 800, 600);
+            stage.setScene(scene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -43,15 +43,7 @@ public class Jogo {
     }
 
     public boolean verificarSeAcabou() {
-        if (jogadorReal.getBaralhoMao().getBaralho().size() == 32) {
-            System.out.println("PARABÉNS! VOCÊ GANHOU!!");
-            return true;
-        }
-        if (jogadorMaquina.getBaralhoMao().getBaralho().size() == 32) {
-            System.out.println("Infelizmente o computador te superou no trunfo...");
-            return true;
-        }
-        return false;
+        return jogadorReal.getBaralhoMao().getBaralho().size() == 32 || jogadorMaquina.getBaralhoMao().getBaralho().size() == 32;
     }
 
     public void embaralharEDistribuirCartas() {
@@ -118,5 +110,9 @@ public class Jogo {
                 return jogadorRealTurno;
             }
         }
+    }
+
+    public boolean isJogadorRealVencedor() {
+        return jogadorReal.getBaralhoMao().getBaralho().size() == 32;
     }
 }
