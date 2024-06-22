@@ -19,7 +19,7 @@
             </ImageView>
 
             <VBox alignment="CENTER" spacing="10">
-                <Button text="Começar Jogo" onAction="#handleStartGame"/>
+                <Button fx:id="startGameButton" text="Começar Jogo" onAction="#handleStartGame"/>
                 <ComboBox fx:id="difficultyComboBox" promptText="Selecione a dificuldade"/>
             </VBox>
         </StackPane>

@@ -45,7 +45,11 @@ public class GuiController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        difficultyComboBox.getItems().addAll("Fácil", "Médio", "Difícil", "Impossível");
+        if (difficultyComboBox != null) {
+            difficultyComboBox.getItems().addAll("Fácil", "Médio", "Difícil", "Impossível");
+        } else {
+            System.out.println("difficultyComboBox is null!");
+        }
     }
 
     @FXML
@@ -104,13 +108,12 @@ public class GuiController implements Initializable {
             e.printStackTrace();
         }
     }
-
     @FXML
     private void handleEscolherAtributo(ActionEvent event) {
         String atributo = ((Node) event.getSource()).getId();
         if (jogo != null) {
             boolean jogadorRealVenceu = jogo.compararCategoria(atributo);
-            atualizarInterface();
+            atualizarInterface(); // Atualiza a interface após a jogada
             if (jogo.verificarSeAcabou()) {
                 System.out.println("Fim do jogo!");
             } else if (!jogadorRealVenceu) {
@@ -118,6 +121,7 @@ public class GuiController implements Initializable {
             }
         }
     }
+
 
     private void handleTurnoComputador() {
         if (jogo != null && !jogo.isJogadorRealTurno()) {
@@ -134,30 +138,39 @@ public class GuiController implements Initializable {
 
     private void atualizarInterface() {
         jogadorRealCartas.setText("Cartas do Jogador: " + jogo.getJogadorReal().getBaralhoMao().getBaralho().size());
-        jogadorMaquinaCartas.setText("Cartas da Maquina: " + jogo.getJogadorMaquina().getBaralhoMao().getBaralho().size());
+        jogadorMaquinaCartas.setText("Cartas da Máquina: " + jogo.getJogadorMaquina().getBaralhoMao().getBaralho().size());
 
-        // Obter a carta atual do jogador real
-        Carta cartaAtualJogador = jogo.getJogadorReal().getBaralhoMao().getBaralho().get(0);
+        // Verifica se há cartas na mão do jogador real
+        if (!jogo.getJogadorReal().getBaralhoMao().getBaralho().isEmpty()) {
+            // Obtém a carta atual do jogador real
+            Carta cartaAtualJogador = jogo.getJogadorReal().getBaralhoMao().getBaralho().get(0);
 
-        // Atualizar o texto no TextArea para exibir informações da carta
-        cartaAtual.setText("Carta Atual: \nNome: " + cartaAtualJogador.getNome()
-                + "\nFofura: " + cartaAtualJogador.getFofura()
-                + "\nAgilidade: " + cartaAtualJogador.getAgilidade()
-                + "\nAgressividade: " + cartaAtualJogador.getAgressividade()
-                + "\nBrincalhão: " + cartaAtualJogador.getBrincalhao()
-                + "\nObediência: " + cartaAtualJogador.getObediencia());
+            // Monta o caminho completo da imagem da carta baseado no nome da carta
+            String nomeCarta = cartaAtualJogador.getNome(); // Supondo que o nome esteja correto
+            String caminhoImagem = "/views/assets/cartas/" + nomeCarta + ".png";
 
-        // Determinar o índice da carta atual para montar o caminho da imagem
-        int indiceCarta = jogo.getJogadorReal().getBaralhoMao().getBaralho().indexOf(cartaAtualJogador) + 1;
+            // Carrega a imagem correspondente
+            try {
+                Image imagem = new Image(getClass().getResourceAsStream(caminhoImagem));
+                cartaImagem.setImage(imagem);
+            } catch (Exception e) {
+                System.out.println("Erro ao carregar imagem: " + e.getMessage());
+                // Tratar exceção ao carregar a imagem
+                cartaImagem.setImage(null); // Pode definir uma imagem padrão ou limpar o ImageView
+            }
 
-        // Montar o caminho completo da imagem da carta baseado no índice
-        String caminhoImagem = "C:/JMC17/Projeto_MC322/views/assets/cartas/carta_" + indiceCarta + ".png";
-
-        // Carregar a imagem correspondente
-        Image imagem = new Image(new File(caminhoImagem).toURI().toString());
-
-        // Definir a imagem no ImageView cartaImagem
-        cartaImagem.setImage(imagem);
+            // Atualiza o texto no TextArea para exibir informações da carta atual
+            cartaAtual.setText("Carta Atual: \nNome: " + cartaAtualJogador.getNome()
+                    + "\nFofura: " + cartaAtualJogador.getFofura()
+                    + "\nAgilidade: " + cartaAtualJogador.getAgilidade()
+                    + "\nAgressividade: " + cartaAtualJogador.getAgressividade()
+                    + "\nBrincalhão: " + cartaAtualJogador.getBrincalhao()
+                    + "\nObediência: " + cartaAtualJogador.getObediencia());
+        } else {
+            // Se não há cartas na mão do jogador, define uma imagem padrão ou vazia
+            cartaImagem.setImage(null);
+            cartaAtual.setText("Sem cartas disponíveis");
+        }
     }
 
     public void setJogo(Jogo jogo) {
