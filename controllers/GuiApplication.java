@@ -1,14 +1,14 @@
-/*package controllers;
+package controllers;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class GuiApplication extends Application {
 
-    
     public static void main(String[] args) {
         launch(args);
     }
@@ -21,7 +21,7 @@ public class GuiApplication extends Application {
         // Configura o título da janela principal
         primaryStage.setTitle("Super Trunfo");
 
-        Image icon = new Image("views/assets/icon.png");
+        Image icon = new Image("views/assets/icon.jpg");
         primaryStage.getIcons().add(icon);
 
         // Define a cena com o root carregado do FXML e um tamanho inicial razoável
@@ -33,7 +33,4 @@ public class GuiApplication extends Application {
         // Exibe a janela
         primaryStage.show();
     }
-
-
 }
-*/

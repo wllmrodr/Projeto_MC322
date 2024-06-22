@@ -1,0 +1,6 @@
+/* styles.css */
+
+#AnchorPane {
+    -fx-background-image: url('/views/fundoTela.jpg');
+    -fx-background-size: cover;
+}

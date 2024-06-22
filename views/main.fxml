@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.image.Image?>
 
+<?import javafx.scene.layout.VBox?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="controllers.GuiController">
@@ -18,7 +18,10 @@
                 </image>
             </ImageView>
 
-            <Button text="Começar Jogo" onAction="#handleStartGame" StackPane.alignment="BOTTOM_CENTER"/>
+            <VBox alignment="CENTER" spacing="10">
+                <Button text="Começar Jogo" onAction="#handleStartGame"/>
+                <ComboBox fx:id="difficultyComboBox" promptText="Selecione a dificuldade"/>
+            </VBox>
         </StackPane>
     </Pane>
 </StackPane>
