@@ -158,18 +158,9 @@ public class GuiController implements Initializable {
                 // Tratar exceção ao carregar a imagem
                 cartaImagem.setImage(null); // Pode definir uma imagem padrão ou limpar o ImageView
             }
-
-            // Atualiza o texto no TextArea para exibir informações da carta atual
-            cartaAtual.setText("Carta Atual: \nNome: " + cartaAtualJogador.getNome()
-                    + "\nFofura: " + cartaAtualJogador.getFofura()
-                    + "\nAgilidade: " + cartaAtualJogador.getAgilidade()
-                    + "\nAgressividade: " + cartaAtualJogador.getAgressividade()
-                    + "\nBrincalhão: " + cartaAtualJogador.getBrincalhao()
-                    + "\nObediência: " + cartaAtualJogador.getObediencia());
         } else {
             // Se não há cartas na mão do jogador, define uma imagem padrão ou vazia
             cartaImagem.setImage(null);
-            cartaAtual.setText("Sem cartas disponíveis");
         }
     }
 

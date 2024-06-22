@@ -2,7 +2,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
@@ -27,16 +26,10 @@
         </padding>
 
         <!-- Labels e ImageView para mostrar a carta -->
-        <Label fx:id="jogadorRealCartas" layoutX="14.0" layoutY="50.0" />
-        <Label fx:id="jogadorMaquinaCartas" layoutX="300.0" layoutY="50.0" />
+        <Label fx:id="jogadorRealCartas" layoutX="662.0" layoutY="550.0" />
+        <Label fx:id="jogadorMaquinaCartas" layoutX="660.0" layoutY="530.0" />
 
         <ImageView fx:id="cartaImagem" layoutX="315.0" layoutY="330.0" fitWidth="216.0" fitHeight="288.0" />
-
-        <!-- Pane para alinhar os elementos -->
-        <Pane layoutX="520.0" layoutY="150.0">
-            <!-- TextArea para mostrar informações da carta -->
-            <TextArea fx:id="cartaAtual" prefHeight="200.0" prefWidth="250.0" />
-        </Pane>
 
         <!-- VBox para os botões no canto esquerdo inferior -->
         <VBox layoutX="14.0" layoutY="400.0" spacing="10">
