@@ -157,7 +157,23 @@ public class GuiController implements Initializable {
             PauseTransition delay1 = new PauseTransition(Duration.seconds(2));
             delay1.setOnFinished(e1 -> {
                 String escolhaComputador = jogo.getJogadorMaquina().escolheCategoria(jogo.getJogadorMaquina().getDificuldadeJogo(), cartaComputador);
-                System.out.println("Computador escolheu o atributo " + escolhaComputador);
+                String categoria = null;
+                if(escolhaComputador.equals("1")){
+                    categoria = "Fofura";
+                }
+                if(escolhaComputador.equals("2")){
+                    categoria = "Agilidade";
+                }
+                if(escolhaComputador.equals("3")){
+                    categoria = "Agressividade";
+                }
+                if(escolhaComputador.equals("4")){
+                    categoria = "Brincalhão";
+                }
+                if(escolhaComputador.equals("5")){
+                    categoria = "Obediência";
+                }
+                System.out.println("Computador escolheu o atributo " + categoria);
 
                 // Mostrar a carta do computador virada para cima
                 String caminhoImagemMaquina = "/views/assets/cartas/" + cartaComputador.getNome() + ".png";

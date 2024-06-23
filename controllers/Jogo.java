@@ -7,12 +7,13 @@ public class Jogo {
     private JogadorMaquina jogadorMaquina;
     private JogadorReal jogadorReal;
     private BaralhoGeral baralhoGeral;
-    private Jogador perdedorAnterior = jogadorReal; // Campo para rastrear o perdedor anterior
+    private Jogador perdedorAnterior; // Campo para rastrear o perdedor anterior
 
     private Jogo(JogadorMaquina jogadorMaquina, JogadorReal jogadorReal, BaralhoGeral baralhoGeral) {
         this.jogadorMaquina = jogadorMaquina;
         this.jogadorReal = jogadorReal;
         this.baralhoGeral = baralhoGeral;
+        this.perdedorAnterior = jogadorReal;
     }
 
     public static Jogo getInstance(JogadorMaquina jogadorMaquina, JogadorReal jogadorReal, BaralhoGeral baralhoGeral) {
