@@ -7,16 +7,12 @@ public class Jogo {
     private JogadorMaquina jogadorMaquina;
     private JogadorReal jogadorReal;
     private BaralhoGeral baralhoGeral;
-    private Jogador perdedorAnterior; // Campo para rastrear o perdedor anterior
-    private boolean primeiraRodada; // Campo para verificar se é a primeira rodada
-    private boolean jogadorRealTurno;
+    private Jogador perdedorAnterior = jogadorReal; // Campo para rastrear o perdedor anterior
 
     private Jogo(JogadorMaquina jogadorMaquina, JogadorReal jogadorReal, BaralhoGeral baralhoGeral) {
         this.jogadorMaquina = jogadorMaquina;
         this.jogadorReal = jogadorReal;
         this.baralhoGeral = baralhoGeral;
-        this.primeiraRodada = true; // Inicializa como verdadeira
-        this.jogadorRealTurno = true; // Jogador Real começa a primeira rodada
     }
 
     public static Jogo getInstance(JogadorMaquina jogadorMaquina, JogadorReal jogadorReal, BaralhoGeral baralhoGeral) {
@@ -38,9 +34,6 @@ public class Jogo {
         return jogadorMaquina;
     }
 
-    public boolean isJogadorRealTurno() {
-        return jogadorRealTurno;
-    }
 
     public boolean verificarSeAcabou() {
         return jogadorReal.getBaralhoMao().getBaralho().size() == 32 || jogadorMaquina.getBaralhoMao().getBaralho().size() == 32;
@@ -85,30 +78,22 @@ public class Jogo {
         if (valorJogador > valorMaquina) {
             jogadorReal.ganharCartaDeOutroJogador(jogadorMaquina, cartaMaquina);
             perdedorAnterior = jogadorMaquina;
-            jogadorRealTurno = true;
             return true;
         } else if (valorJogador < valorMaquina) {
             jogadorMaquina.ganharCartaDeOutroJogador(jogadorReal, cartaJogador);
             perdedorAnterior = jogadorReal;
-            jogadorRealTurno = false;
             return false;
         } else {
-            if (perdedorAnterior == jogadorReal) {
+            if (perdedorAnterior.equals(jogadorReal)) {
                 jogadorReal.ganharCartaDeOutroJogador(jogadorMaquina, cartaMaquina);
                 perdedorAnterior = jogadorMaquina;
+                return true;
             } else {
                 jogadorMaquina.ganharCartaDeOutroJogador(jogadorReal, cartaJogador);
                 perdedorAnterior = jogadorReal;
+                return false;
             }
 
-            if (primeiraRodada) {
-                jogadorRealTurno = true;
-                primeiraRodada = false; // Atualiza após a primeira rodada
-                return true;
-            } else {
-                jogadorRealTurno = perdedorAnterior != jogadorReal;
-                return jogadorRealTurno;
-            }
         }
     }
 

@@ -1,5 +1,6 @@
 package controllers;
 
+import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import models.*;
 
 import java.io.File;
@@ -35,7 +37,9 @@ public class GuiController implements Initializable {
     @FXML
     private Label jogadorMaquinaCartas;
     @FXML
-    private ImageView cartaImagem;
+    private ImageView cartaImagemJogadorReal;
+    @FXML
+    private ImageView cartaImagemJogadorMaquina;
     @FXML
     private AnchorPane anchorPane; // Referência ao AnchorPane do game.fxml
 
@@ -45,20 +49,17 @@ public class GuiController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         if (difficultyComboBox != null) {
             difficultyComboBox.getItems().addAll("Fácil", "Médio", "Difícil", "Impossível");
-        } else {
-            System.out.println("difficultyComboBox is null!");
         }
     }
 
     @FXML
     private void handleStartGame(ActionEvent event) {
         String selectedDifficulty = difficultyComboBox.getValue();
-        if (selectedDifficulty == null) {
+        if (selectedDifficulty.equals(null)) {
             System.out.println("Selecione uma dificuldade!");
             return;
         }
-
-        DificuldadeJogo dificuldadeJogo;
+        DificuldadeJogo dificuldadeJogo = null;
         switch (selectedDifficulty) {
             case "Fácil":
                 dificuldadeJogo = DificuldadeJogo.FACIL;
@@ -110,29 +111,82 @@ public class GuiController implements Initializable {
     @FXML
     private void handleEscolherAtributo(ActionEvent event) {
         String atributo = ((Node) event.getSource()).getId();
+        Carta cartaAtualJogadorMaquina = jogo.getJogadorMaquina().getBaralhoMao().getBaralho().get(0);
+        String caminhoImagemMaquina = "/views/assets/cartas/" + cartaAtualJogadorMaquina.getNome() + ".png";
         if (jogo != null) {
             boolean jogadorRealVenceu = jogo.compararCategoria(atributo);
-            atualizarInterface(); // Atualiza a interface após a jogada
-            if (jogo.verificarSeAcabou()) {
-                mostrarTelaFimDeJogo(jogo.isJogadorRealVencedor());
-            } else if (!jogadorRealVenceu) {
-                handleTurnoComputador();
+            // Atualiza a imagem da carta do jogador da máquina
+            try {
+                Image imagem = new Image(getClass().getResourceAsStream(caminhoImagemMaquina));
+                cartaImagemJogadorMaquina.setImage(imagem);
+            } catch (Exception e) {
+                System.out.println("Erro ao carregar imagem: " + e.getMessage());
+                // Tratar exceção ao carregar a imagem
+                cartaImagemJogadorMaquina.setImage(null);
             }
+
+            // Adiciona um atraso de 2 segundos antes de atualizar a interface
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
+            delay.setOnFinished(e -> {
+                atualizarInterface(); // Atualiza a interface após a jogada
+                if (jogo.verificarSeAcabou()) {
+                    mostrarTelaFimDeJogo(jogo.isJogadorRealVencedor());
+                } else if (!jogadorRealVenceu) {
+                    handleTurnoComputador();
+                }
+            });
+            delay.play();
         }
     }
 
     private void handleTurnoComputador() {
-        if (jogo != null && !jogo.isJogadorRealTurno()) {
+        if (jogo != null) {
             Carta cartaComputador = jogo.getJogadorMaquina().getBaralhoMao().getBaralho().get(0);
-            String escolhaComputador = jogo.getJogadorMaquina().escolheCategoria(jogo.getJogadorMaquina().getDificuldadeJogo(), cartaComputador);
-            System.out.println("Computador escolheu o atributo " + escolhaComputador);
-            boolean computadorVenceu = jogo.compararCategoria(escolhaComputador);
-            atualizarInterface();
-            if (jogo.verificarSeAcabou()) {
-                mostrarTelaFimDeJogo(jogo.isJogadorRealVencedor());
+
+            // Mostrar a carta do computador virada para baixo
+            String caminhoImagemMaquinaVerso = "/views/assets/cartas/verso.png";
+            try {
+                Image imagemVerso = new Image(getClass().getResourceAsStream(caminhoImagemMaquinaVerso));
+                cartaImagemJogadorMaquina.setImage(imagemVerso);
+            } catch (Exception e) {
+                System.out.println("Erro ao carregar imagem: " + e.getMessage());
+                cartaImagemJogadorMaquina.setImage(null);
             }
+
+            // Primeiro atraso de 2 segundos para revelar a escolha do computador
+            PauseTransition delay1 = new PauseTransition(Duration.seconds(2));
+            delay1.setOnFinished(e1 -> {
+                String escolhaComputador = jogo.getJogadorMaquina().escolheCategoria(jogo.getJogadorMaquina().getDificuldadeJogo(), cartaComputador);
+                System.out.println("Computador escolheu o atributo " + escolhaComputador);
+
+                // Mostrar a carta do computador virada para cima
+                String caminhoImagemMaquina = "/views/assets/cartas/" + cartaComputador.getNome() + ".png";
+                try {
+                    Image imagem = new Image(getClass().getResourceAsStream(caminhoImagemMaquina));
+                    cartaImagemJogadorMaquina.setImage(imagem);
+                } catch (Exception e) {
+                    System.out.println("Erro ao carregar imagem: " + e.getMessage());
+                    cartaImagemJogadorMaquina.setImage(null);
+                }
+
+                // Segundo atraso de 2 segundos para atualizar a interface
+                PauseTransition delay2 = new PauseTransition(Duration.seconds(2));
+                delay2.setOnFinished(e2 -> {
+                    boolean jogadorRealVenceu = jogo.compararCategoria(escolhaComputador);
+                    atualizarInterface();
+                    if(!jogadorRealVenceu){
+                        handleTurnoComputador();
+                    }
+                    if (jogo.verificarSeAcabou()) {
+                        mostrarTelaFimDeJogo(jogo.isJogadorRealVencedor());
+                    }
+                });
+                delay2.play();
+            });
+            delay1.play();
         }
     }
+
 
     private void atualizarInterface() {
         jogadorRealCartas.setText("Cartas do Jogador: " + jogo.getJogadorReal().getBaralhoMao().getBaralho().size());
@@ -143,22 +197,34 @@ public class GuiController implements Initializable {
             // Obtém a carta atual do jogador real
             Carta cartaAtualJogador = jogo.getJogadorReal().getBaralhoMao().getBaralho().get(0);
 
+
             // Monta o caminho completo da imagem da carta baseado no nome da carta
             String nomeCarta = cartaAtualJogador.getNome();
             String caminhoImagem = "/views/assets/cartas/" + nomeCarta + ".png";
 
+            String caminhoImagemMaquina = "/views/assets/cartas/verso.png";
+
+
             // Carrega a imagem correspondente
             try {
                 Image imagem = new Image(getClass().getResourceAsStream(caminhoImagem));
-                cartaImagem.setImage(imagem);
+                cartaImagemJogadorReal.setImage(imagem);
             } catch (Exception e) {
                 System.out.println("Erro ao carregar imagem: " + e.getMessage());
                 // Tratar exceção ao carregar a imagem
-                cartaImagem.setImage(null);
+                cartaImagemJogadorReal.setImage(null);
+            }
+            try {
+                Image imagem = new Image(getClass().getResourceAsStream(caminhoImagemMaquina));
+                cartaImagemJogadorMaquina.setImage(imagem);
+            } catch (Exception e) {
+                System.out.println("Erro ao carregar imagem: " + e.getMessage());
+                // Tratar exceção ao carregar a imagem
+                cartaImagemJogadorMaquina.setImage(null);
             }
         } else {
             // Se não há cartas na mão do jogador, define uma imagem padrão ou vazia
-            cartaImagem.setImage(null);
+            cartaImagemJogadorMaquina.setImage(null);
         }
     }
 
@@ -199,13 +265,18 @@ public class GuiController implements Initializable {
                 fimDeJogoController.setImagemDeResultado("/views/assets/defeat.png");
             }
 
-            // Mostrar a nova cena
-            Stage stage = (Stage) anchorPane.getScene().getWindow();
+            // Criar uma nova cena com o root carregado do FXML
             Scene scene = new Scene(root, 800, 600);
+
+            // Criar um novo Stage para a cena
+            Stage stage = new Stage();
             stage.setScene(scene);
+
+            // Mostrar o Stage (janela)
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

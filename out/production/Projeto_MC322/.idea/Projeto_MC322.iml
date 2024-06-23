@@ -80,5 +80,6 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="lib1" level="project" />
   </component>
 </module>

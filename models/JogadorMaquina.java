@@ -73,9 +73,9 @@ public class JogadorMaquina extends Jogador{
     public String escolheCategoria(DificuldadeJogo dificuldadeJogo, Carta carta){
         double probabilidade = 0;
         switch (dificuldadeJogo){
-            case FACIL -> probabilidade = 0.5;
-            case MEDIO -> probabilidade = 0.6;
-            case DIFICIL -> probabilidade= 0.8;
+            case FACIL -> probabilidade = 0.3;
+            case MEDIO -> probabilidade = 0.45;
+            case DIFICIL -> probabilidade= 0.7;
             case IMPOSSIVEL -> probabilidade = 1.0;
         }
         return escolheCategoriaDadoProb(probabilidade, carta);
